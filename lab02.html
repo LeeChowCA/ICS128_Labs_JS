@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </link>
+  <title>Lab2</title>
+
+  <style>
+    #mainPage {
+      height: 85vh;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary " data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">JIANPING Hotel</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="Home.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="lab01.html">Lab1</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="lab02.html">Lab2</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="lab03.html">Lab3</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="lab04.html">Lab4</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="lab05.html">Lab5</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Lab6</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="mainPage" class="d-flex align-items-center justify-content-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-4">
+          <div class="card">
+            <div class="card-body">
+              <h4>3 Prices for rooms?</h4>
+                <p class="card-text" id="prices"></p>
+                <p class="card-text" id="mean"></p>
+                <p class="card-text" id="evenOrNot"></p>
+                <p class="card-text" id="middle"></p>
+                <p class="card-text" id="meanNumber"></p>
+                <button type="button" class="btn btn-primary" id="meanOrMiddle">Calculate</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-4">
+          <div class="card">
+            <form id="percentageForm">
+              <div class="card-body">
+                <h4>Display how full the hotel is:</h4>
+
+                <input type="text" id="percentage" class="input-group-text">
+
+                <p>The Hotel is:</p>
+                <h4 id="showPercentage" class="card-text"></h4>
+                <h4 class="card-text" id="booked"></h4>
+                <button type="button" class="btn btn-primary" id="percentButton">Calculate</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center mt-2">
+        <div class="col-4">
+          <div class="card">
+            <div class="card-body">
+              <h4 id="iteration" class="card-text">Iteration</h4>
+              <input id="inputValue" type="text">
+              <div id="display"></div>
+              <button id="iterationButton" type="button" class="btn btn-primary mt-1">Iterate Me</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-4">
+          <div class="card">
+            <div class="card-body">
+              <h4>Who gets there faster</h4>
+              <label for="AlexaSpeed">Alexa's speed:</label>
+              <input type="text" id="AlexaSpeed">
+              <label for="SiriSpeed">Siri's speed:</label>
+              <input type="text" id="SiriSpeed" class="mt-3">
+              <div>
+                <span class="card-text">Alexa's speed is: </span>
+                <span class="card-text" id="AlexaDisplay"></span>
+              </div>
+              <div>
+                <span class="card-text" >Siri's speed is: </span>
+                <span class="card-text" id="SiriDisplay"></span>
+              </div>
+              <div>
+                <span class="card-text"  id="winner"></span>
+                <span class="card-text"  id="">Gets there first!</span>
+              </div>
+              <button type="button" class="btn btn-primary mt-2" id="whoIsFaster">Who's faster</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <footer class="footer text-center fs-4 bg-dark text-white">@copyright 2024</footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <script src="includes/js/lab02.js"></script>
+</body>
+
+</html>
