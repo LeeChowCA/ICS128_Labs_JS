@@ -1,10 +1,10 @@
+// Create class for Hotel
 class Hotel {
-
     restaurants = [["Donde La Arepa", "Colombian"], ["Casa Ramen", "Japanese"], ["Pizza Hermosa", "Italian"]];
     roomType = ["Twin ", "Double ", "Suite ", "HoneyMoon"];
     swimmingPool = true;
     airportShuttle = true;
-
+    // properties of the Hotel class
 
     constructor(name, city, rooms, booked, gym) {
         this._name = name;
@@ -13,6 +13,7 @@ class Hotel {
         this._booked = booked;
         this._gym = gym;
     }
+    //constructor of Hotel class
 
     set name(name) {
         this._name = name;
@@ -73,7 +74,7 @@ let city = "Victoria";
 let rooms = 5;
 let booked = 3;
 let gym = false;
-//set the
+//set the values for the variables, will be used in the constructor later
 let myHotel = new Hotel(name, city, rooms, booked, gym);
 
 let hotelCard = document.getElementById("hotelCard");
@@ -87,6 +88,8 @@ let displayRestaurant = () => {
 
     return restaurant;
 }
+/* Use a string to storing the tags for displaying restaurant and then return it, so all info of the restaurant
+* could be displayed once*/
 
 hotelCard.innerHTML = `<div class = "card-header">Book Your Room</div>
                         <div class = "card-body">
@@ -110,8 +113,11 @@ hotelCard.innerHTML = `<div class = "card-header">Book Your Room</div>
                             <button class="btn btn-danger">Cancel Room</button>
                         </div>
                         <div class = "card-footer">Exercise 1</div>`;
+// create the card for displaying the hotel info
 displayRestaurant();
 
+
+// Resort class inherit Hotel class
 class Resort extends Hotel{
 
     constructor(name, city, rooms, booked, gym, resortType, beachFront, kidsClub) {
@@ -151,6 +157,7 @@ let resortCard = document.getElementById("resortCard");
 let resortType = "singles";
 let beachFront = false;
 let kidsClub = true;
+// create variables for creating the object of Resort class
 
 myResort = new Resort("GoGo Resort","Vancouver", 10, 1, true,  resortType, beachFront, kidsClub);
 
@@ -171,6 +178,7 @@ resortCard.innerHTML = `
                            <button class="btn btn-danger">Cancel Room</button>
                         </div>
                         <div class="card-footer">Excercise 2</div>`
+//create a card for displaying resort info
 
 
 
