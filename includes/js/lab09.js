@@ -77,11 +77,11 @@ loginForm.addEventListener("submit", function(event ) {
     if (firstNameVerify && secondNameVerify && ageVerify && emailVerify && phoneVerify && postalVerify) {
         document.getElementById("loginForm").setAttribute("class","was-validated");
         submitButton.setAttribute("data-bs-dismiss", "modal");
+        let myModal = bootstrap.Modal.getInstance(loginModal);
+        // get the modal named "loginModal"
+        myModal.hide();
+        // make sure when validation passed, the modal will disappear, instead of clicking the submit button one more time to close it.
         document.getElementById("allVerifiedMessage").innerHTML = `<span style="color: goldenrod">info is correct</span> `;
-        document.getElementById("welcomeMessage").classList.remove("d-none");
-        document.getElementById("welcomeMessage").innerHTML = `Hello, ${firstNameInput.value} ${secondNameInput.value}`;
-        document.getElementById("welcomeMessage").style.color = "white";
-        console.log("hello");
 
         document.getElementById("fullName").innerHTML = `${firstNameInput.value} ${secondNameInput.value}`;
         document.getElementById("cardEmail").innerHTML = `${emailInput.value}`;
@@ -101,11 +101,17 @@ logoutButton.addEventListener("click", () => {
     document.getElementById("welcomeMessage").classList.add("d-none");
 })
 
+let responseAPI = async() => {
+    let lat = 48.44490755561586;
+    let lon = -123.38660990255518;
+    let apiKey = "d11ec01c268e7bc2a984c522ae15807f";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 
+    let response = await fetch(apiUrl);
+    console.log(response);
+    let data = await response.json();
+    console.log(data);
+}
 
+responseAPI();
 
-// $("#loginBtn").on("submit", (event) => {
-//     // mush pass "event" as a parameter.
-//     event.preventDefault();
-//
-// })
