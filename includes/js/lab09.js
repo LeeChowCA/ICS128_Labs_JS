@@ -189,10 +189,116 @@ $(document).ready(() => {
     }
     // calculatePrice method, it will display the order info.
 
-    $("#bookRoom").on("click", calculatePrice);
+
+    class Hotel {
+        restaurants = [["Donde La Arepa", "Colombian"], ["Casa Ramen", "Japanese"], ["Pizza Hermosa", "Italian"]];
+        roomType = ["Twin ", "Double ", "Suite ", "HoneyMoon"];
+        swimmingPool = true;
+        airportShuttle = true;
+        // properties of the Hotel class
+
+        constructor(name, city, rooms, booked, gym) {
+            this._name = name;
+            this._city = city;
+            this._rooms = rooms;
+            this._booked = booked;
+            this._gym = gym;
+        }
+        //constructor of Hotel class
+
+        set name(name) {
+            this._name = name;
+        }
+
+        set city(city) {
+            this._city = city;
+        }
+
+        set rooms(rooms) {
+            this._rooms = rooms;
+        }
+
+        set booked(booked) {
+            this._booked = booked;
+        }
+
+        set gym(gym) {
+            this._gym = gym;
+        }
+
+        get name() {
+            return this._name;
+        }
+
+        get city() {
+            return this._city;
+        }
+
+        get rooms() {
+            return this._rooms;
+        }
+
+        get booked() {
+            return this._booked;
+        }
+
+        get gym() {
+            if (this._gym === true) {
+                return "true";
+            } else
+                return "false";
+        }
+
+        bookRoom() {
+            this._rooms += 1;
+        }
+
+        cancelRoom() {
+            this._rooms -= 1;
+        }
+
+
+    }
+
+    let name = 'Jianping Hotel';
+    let city = "Victoria";
+    let rooms = 5;
+    let booked = 3;
+    let gym = false;
+//set the values for the variables, will be used in the constructor later
+    let myHotel = new Hotel(name, city, rooms, booked, gym);
+
+    let displayRestaurant = () => {
+        let restaurant  = "";
+
+        for (let [key, value] of myHotel.restaurants) {
+            restaurant += `<span class="fw-bold">${key}</span> / type / <span class="fw-bold">${value}</span> <br>`
+        }
+        return restaurant;
+    }
+
+    let hotelInfoDisplay = () => {
+        let selectedRoomType = $(`input[name="roomType"]:checked`).val()
+        if(selectedRoomType === "standard"){
+            $("#hotelInfoDisplay").html(`<span class="fw-bold">Hotel has a shuttle? </span><span>${myHotel.airportShuttle}</span>
+                            <br>
+                            <span class="fw-bold">Hotel has a swimming pool? </span><span>${myHotel.swimmingPool}</span>
+                            <br>
+                            <span class="fw-bold">Hotel has a shuttle? </span><span>${myHotel.airportShuttle}</span>
+                            <br>
+                            <div><span class="fw-bold">Hotel has ${myHotel.restaurants.length} restaurants each with a different theme:</span></div>
+                            <br>
+                            <span class="fw-bold">Hotel has a gym?</span> <span>${myHotel.gym}</span>
+                            ${displayRestaurant()}`);
+        }
+    }
+
+    $("#bookRoom").on("click", () => {calculatePrice();hotelInfoDisplay()});
     //add click event listener to bookRoom button, when click the calculatePrice will be called
 
-    $("#cancelRoom").on("click", cancelRoom)
+    $("#cancelRoom").on("click", cancelRoom);
+
+
 })
 
 
@@ -308,28 +414,6 @@ const sampleTable = document.getElementById("sampleTable");
 const myButton = document.getElementById("myButton");
 let counter = 1;
 
-myButton.addEventListener("click", () => {
-    counter++;
-
-    const table = document.createElement("table");
-    const tr = document.createElement("tr");
-    const td1 = document.createElement("td");
-    const td2 = document.createElement("td");
-    const tbody = document.createElement("tbody");
-
-    table.setAttribute("class", "table-striped table table-dark mb-0");
-    table.setAttribute("border", "1");
-
-    td1.innerHTML = `Row${counter} cell1`;
-    td2.innerHTML = `Row${counter} cell2`;
-
-    part0201.appendChild(table);
-
-    table.appendChild(tbody)
-    tbody.appendChild(tr);
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-})
 
 
 
