@@ -164,7 +164,7 @@ $(document).ready(() => {
                     <p>Room Booked - there are ${(totalRoom - canceledRoom)}/${totalRoom} Rooms Booked</p
                     <p>Your length of stay is ${totalDays} days</p>
                     <p>$${pricePerNight} / night</p>
-                    <p>Total: $${pricePerNight * betweenDays}</p>        
+                    <p>Total: $${pricePerNight * totalDays * totalRoom}</p>        
                     `);
         } else {
             $("#widgetDisplay").html(`<p>Please choose valid dates</p>`);
@@ -172,7 +172,7 @@ $(document).ready(() => {
     }
 
     let cancelRoom = () => {
-        canceledRoom += 1;
+        totalRoom -= 1;
         let selectedRoomType = $(`input[name="roomType"]:checked`).val();
         // target the input with name = roomType and get it's value
         let pricePerNight = roomPrice[selectedRoomType];
@@ -182,11 +182,11 @@ $(document).ready(() => {
         let betweenDays = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24));
 
         $("#bookingDisplay").html(`
-                    <p class="text-info">Room Booked - there are ${(totalRoom - canceledRoom)}/${totalRoom} Rooms Booked</p
-                    <p>Your length of stay is ${totalDays} days</p>
+                    <p class="text-info">Room Canceled - there are ${(totalRoom)}/${totalRoom} Rooms Booked</p
                     <p>$${pricePerNight} / night</p>
-                    <p>Total: $${pricePerNight * betweenDays}</p> `);
+                    <p>Total: $${pricePerNight * betweenDays * (totalRoom)}</p> `);
     }
+
     // calculatePrice method, it will display the order info.
 
 
@@ -195,6 +195,7 @@ $(document).ready(() => {
         roomType = ["Twin ", "Double ", "Suite ", "HoneyMoon"];
         swimmingPool = true;
         airportShuttle = true;
+
         // properties of the Hotel class
 
         constructor(name, city, rooms, booked, gym) {
@@ -204,6 +205,7 @@ $(document).ready(() => {
             this._booked = booked;
             this._gym = gym;
         }
+
         //constructor of Hotel class
 
         set name(name) {
@@ -260,6 +262,8 @@ $(document).ready(() => {
 
     }
 
+//class for hotel info
+
     let name = 'Jianping Hotel';
     let city = "Victoria";
     let rooms = 5;
@@ -269,7 +273,7 @@ $(document).ready(() => {
     let myHotel = new Hotel(name, city, rooms, booked, gym);
 
     let displayRestaurant = () => {
-        let restaurant  = "";
+        let restaurant = "";
 
         for (let [key, value] of myHotel.restaurants) {
             restaurant += `<span class="fw-bold">${key}</span> / type / <span class="fw-bold">${value}</span> <br>`
@@ -277,9 +281,8 @@ $(document).ready(() => {
         return restaurant;
     }
 
-    let hotelInfoDisplay = () => {
-        let selectedRoomType = $(`input[name="roomType"]:checked`).val()
-        if(selectedRoomType === "standard"){
+    let hotelInfo = (roomType) => {
+        if (roomType === "standard") {
             $("#hotelInfoDisplay").html(`<span class="fw-bold">Hotel has a shuttle? </span><span>${myHotel.airportShuttle}</span>
                             <br>
                             <span class="fw-bold">Hotel has a swimming pool? </span><span>${myHotel.swimmingPool}</span>
@@ -290,42 +293,80 @@ $(document).ready(() => {
                             <br>
                             <span class="fw-bold">Hotel has a gym?</span> <span>${myHotel.gym}</span>
                             ${displayRestaurant()}`);
+        } else if (roomType === "double") {
+            $("#hotelInfoDisplay").html(`<span class="fw-bold">Hotel has a shuttle? </span><span>False</span>
+                            <br>
+                            <span class="fw-bold">Hotel has a swimming pool? </span><span>${myHotel.swimmingPool}</span>
+                            <br>
+                            <span class="fw-bold">Hotel has a shuttle? </span><span>False</span>
+                            <br>
+                            <div><span class="fw-bold">Hotel has ${myHotel.restaurants.length} restaurants each with a different theme:</span></div>
+                            <br>
+                            <span class="fw-bold">Hotel has a gym?</span> <span>${myHotel.gym}</span>
+                            ${displayRestaurant()}`);
+        } else if (roomType === "penthouse") {
+            $("#hotelInfoDisplay").html(`<span class="fw-bold">Hotel has a shuttle? </span><span>true</span>
+                            <br>
+                            <span class="fw-bold">Hotel has a swimming pool? </span><span>${myHotel.swimmingPool}</span>
+                            <br>
+                            <span class="fw-bold">Hotel has a shuttle? </span><span>true</span>
+                            <br>
+                            <div><span class="fw-bold">Hotel has ${myHotel.restaurants.length} restaurants each with a different theme:</span></div>
+                            <br>
+                            <span class="fw-bold">Hotel has a gym?</span> <span>True</span>
+                            ${displayRestaurant()}`);
+        }
+        else {
+            $("#hotelInfoDisplay").html(`<span class="fw-bold">Please choose a type</span><span>true</span>
+                            `);
         }
     }
 
-    $("#bookRoom").on("click", () => {calculatePrice();hotelInfoDisplay()});
+    let hotelInfoDisplay = () => {
+        let selectedRoomType = $(`input[name="roomType"]:checked`).val()
+        hotelInfo(selectedRoomType);
+        }
+
+
+    $("#bookRoom").on("click", () => {
+        calculatePrice();
+        hotelInfoDisplay()
+    });
     //add click event listener to bookRoom button, when click the calculatePrice will be called
 
-    $("#cancelRoom").on("click", cancelRoom);
+    $("#cancelRoom").on("click", () => {
+        if (totalRoom > 0) {
+            cancelRoom();
+        }
+    });
 
 
 })
 
 
-
 const arrHotelRooms = [
     {
         name: "Standard",
-        description:"Single room with a bed",
-        img:"includes/imgs/room1.jpg",
+        description: "Single room with a bed",
+        img: "includes/imgs/room1.jpg",
         price: "$150"
-    },{
-        name:"Double",
+    }, {
+        name: "Double",
         description: "Double Room with a bed",
-        img:'includes/imgs/room2.jpg',
+        img: 'includes/imgs/room2.jpg',
         price: "$120"
-    },{
-        name:"Penthouse",
+    }, {
+        name: "Penthouse",
         description: "King Size Bed<br>Bar<br>Jacuzzi",
-        img:'includes/imgs/room3.jpg',
+        img: 'includes/imgs/room3.jpg',
         price: "$200"
-    }, ];
+    },];
 
 let hotelRoomsDisplay = document.querySelector("#hotelRoomsDisplay");
 
 
 function hotelDisplay() {
-    for (let i = 0; i < arrHotelRooms.length; i++){
+    for (let i = 0; i < arrHotelRooms.length; i++) {
         const card = document.createElement("div");
         const row = document.createElement("div");
         const divImg = document.createElement("div");
@@ -383,7 +424,6 @@ function hotelDisplay() {
             divButton.appendChild(cardButton3);
 
 
-
         cardHeader.innerHTML = arrHotelRooms[i].name;
         cardText.innerHTML = arrHotelRooms[i].description;
         cardPrice.innerHTML = arrHotelRooms[i].price;
@@ -402,11 +442,9 @@ function hotelDisplay() {
         cardButton3.addEventListener("click", () => {
             alert("your room is $200 per night");
         })
-
-
-
     }
 }
+
 hotelDisplay();
 
 const part0201 = document.getElementById("part0201");
